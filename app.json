@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jamal.profileapp"
+      "bundleIdentifier": "com.jamal.quizapp"
     },
     "splash": {
       "image": "./assets/images/splash.png",
@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jamal.profileapp",
+      "package": "com.jamal.quizapp",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
@@ -53,6 +53,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c666197b-a48e-423e-94e1-0e947ca7c57f"
+      }
     }
   }
 }

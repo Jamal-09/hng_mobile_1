@@ -1,7 +1,7 @@
-import React from "react";
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "@/components/ThemeContext";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function Result() {
   const { themeStyles } = useTheme();
@@ -87,13 +87,20 @@ export default function Result() {
         onPress={() => router.push("/")}
         style={{
           marginTop: 30,
+          marginBottom: 30,
           backgroundColor: "#2563eb",
           padding: 14,
           borderRadius: 12,
           alignItems: "center",
         }}
       >
-        <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
+        <Text
+          style={{
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: 16,
+          }}
+        >
           Take Quiz Again 🔁
         </Text>
       </TouchableOpacity>

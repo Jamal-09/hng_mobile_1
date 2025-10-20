@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
-import { useTheme } from "@/components/ThemeContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useTheme } from "@/components/ThemeContext";
 import { storedQuestions } from "@/data/questions";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const questions = storedQuestions.sort(() => 0.5 - Math.random()).slice(0, 10);
 
@@ -13,43 +13,70 @@ export default function Quiz() {
 
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(15);
 
-  const handleAnswer = (selected) => {
+  const q = questions[current];
+
+  // 🕒 TIMER LOGIC
+  useEffect(() => {
+    if (timeLeft === 0) {
+      handleNext(true); // move to next automatically when time runs out
+      return;
+    }
+
+    const timer = setTimeout(() => setTimeLeft((prev) => prev - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [timeLeft]);
+
+  // ✅ HANDLE ANSWER SELECTION
+  const handleSelect = (option) => {
+    setSelected(option);
+  };
+
+  // ➡️ NEXT QUESTION
+  const handleNext = (auto = false) => {
+    const updatedAnswers = [...answers];
     const question = questions[current];
-    setAnswers((prev) => [
-      ...prev,
-      {
-        question: question.question,
-        selectedOption: selected,
-        correctOption: question.correct,
-      },
-    ]);
 
+    // Save answer or mark as unanswered
+    updatedAnswers[current] = {
+      question: question.question,
+      selectedOption: auto ? "Unanswered" : selected || "Unanswered",
+      correctOption: question.correct,
+    };
+
+    setAnswers(updatedAnswers);
+
+    // Go to next or result
     if (current + 1 < questions.length) {
       setCurrent(current + 1);
+      setSelected(null);
+      setTimeLeft(15);
     } else {
-      const score =
-        answers.filter((a) => a.selectedOption === a.correctOption).length +
-        (selected === question.correct ? 1 : 0);
+      const score = updatedAnswers.filter(
+        (a) => a.selectedOption === a.correctOption
+      ).length;
+
       router.push({
         pathname: "/result",
         params: {
           score,
           total: questions.length,
-          results: JSON.stringify([
-            ...answers,
-            {
-              question: question.question,
-              selectedOption: selected,
-              correctOption: question.correct,
-            },
-          ]),
+          results: JSON.stringify(updatedAnswers),
         },
       });
     }
   };
 
-  const q = questions[current];
+  // ⬅️ PREVIOUS QUESTION
+  const handlePrevious = () => {
+    if (current > 0) {
+      setCurrent(current - 1);
+      setSelected(answers[current - 1]?.selectedOption || null);
+      setTimeLeft(15);
+    }
+  };
 
   return (
     <View
@@ -60,17 +87,32 @@ export default function Quiz() {
         justifyContent: "center",
       }}
     >
-      <Text
-        style={{
-          color: themeStyles.text,
-          fontSize: 18,
-          marginBottom: 10,
-          opacity: 0.7,
-        }}
-      >
-        Question {current + 1} of {questions.length}
-      </Text>
+      {/* QUESTION HEADER */}
+      <View style={{ marginBottom: 10 }}>
+        <Text
+          style={{
+            color: themeStyles.text,
+            fontSize: 18,
+            opacity: 0.7,
+          }}
+        >
+          Question {current + 1} of {questions.length}
+        </Text>
 
+        {/* TIMER DISPLAY */}
+        <Text
+          style={{
+            color: timeLeft <= 5 ? "tomato" : themeStyles.text,
+            fontSize: 16,
+            fontWeight: "600",
+            marginTop: 4,
+          }}
+        >
+          Time Left: {timeLeft}s
+        </Text>
+      </View>
+
+      {/* QUESTION */}
       <View style={{ marginBottom: 30 }}>
         <Text
           style={{
@@ -83,25 +125,76 @@ export default function Quiz() {
           {q.question}
         </Text>
 
-        {q.options.map((option, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => handleAnswer(option)}
-            style={{
-              backgroundColor: themeStyles.card,
-              padding: 14,
-              borderRadius: 10,
-              marginBottom: 10,
-              borderWidth: 1,
-              borderColor: "#2563eb44",
-            }}
-          >
-            <Text style={{ color: themeStyles.text }}>{option}</Text>
-          </TouchableOpacity>
-        ))}
+        {q.options.map((option, index) => {
+          const isSelected = selected === option;
+          return (
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleSelect(option)}
+              style={{
+                backgroundColor: isSelected ? "#2563eb" : themeStyles.card,
+                padding: 14,
+                borderRadius: 10,
+                marginBottom: 10,
+                borderWidth: 1,
+                borderColor: isSelected ? "#2563eb" : "#2563eb44",
+              }}
+            >
+              <Text
+                style={{
+                  color: isSelected ? "#fff" : themeStyles.text,
+                }}
+              >
+                {option}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
 
-      <ProgressBar progress={(current + 1) / questions.length} />
+      {/* NAVIGATION BUTTONS */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {current > 0 ? (
+          <TouchableOpacity
+            onPress={handlePrevious}
+            style={{
+              backgroundColor: "#6b7280",
+              paddingVertical: 12,
+              paddingHorizontal: 20,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ color: "#fff", fontWeight: "600" }}>Previous</Text>
+          </TouchableOpacity>
+        ) : (
+          <View />
+        )}
+
+        <TouchableOpacity
+          onPress={() => handleNext(false)}
+          style={{
+            backgroundColor: "#2563eb",
+            paddingVertical: 12,
+            paddingHorizontal: 20,
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: "#fff", fontWeight: "600" }}>
+            {current + 1 === questions.length ? "Finish" : "Next"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* PROGRESS BAR */}
+      <View style={{ marginTop: 30 }}>
+        <ProgressBar progress={(current + 1) / questions.length} />
+      </View>
     </View>
   );
 }
