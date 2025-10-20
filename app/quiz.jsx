@@ -18,10 +18,9 @@ export default function Quiz() {
 
   const q = questions[current];
 
-  // 🕒 TIMER LOGIC
   useEffect(() => {
     if (timeLeft === 0) {
-      handleNext(true); // move to next automatically when time runs out
+      handleNext(true);
       return;
     }
 
@@ -29,17 +28,14 @@ export default function Quiz() {
     return () => clearTimeout(timer);
   }, [timeLeft]);
 
-  // ✅ HANDLE ANSWER SELECTION
   const handleSelect = (option) => {
     setSelected(option);
   };
 
-  // ➡️ NEXT QUESTION
   const handleNext = (auto = false) => {
     const updatedAnswers = [...answers];
     const question = questions[current];
 
-    // Save answer or mark as unanswered
     updatedAnswers[current] = {
       question: question.question,
       selectedOption: auto ? "Unanswered" : selected || "Unanswered",
@@ -48,7 +44,6 @@ export default function Quiz() {
 
     setAnswers(updatedAnswers);
 
-    // Go to next or result
     if (current + 1 < questions.length) {
       setCurrent(current + 1);
       setSelected(null);
@@ -69,7 +64,6 @@ export default function Quiz() {
     }
   };
 
-  // ⬅️ PREVIOUS QUESTION
   const handlePrevious = () => {
     if (current > 0) {
       setCurrent(current - 1);
@@ -87,7 +81,6 @@ export default function Quiz() {
         justifyContent: "center",
       }}
     >
-      {/* QUESTION HEADER */}
       <View style={{ marginBottom: 10 }}>
         <Text
           style={{
@@ -99,7 +92,6 @@ export default function Quiz() {
           Question {current + 1} of {questions.length}
         </Text>
 
-        {/* TIMER DISPLAY */}
         <Text
           style={{
             color: timeLeft <= 5 ? "tomato" : themeStyles.text,
@@ -112,7 +104,6 @@ export default function Quiz() {
         </Text>
       </View>
 
-      {/* QUESTION */}
       <View style={{ marginBottom: 30 }}>
         <Text
           style={{
@@ -152,7 +143,6 @@ export default function Quiz() {
         })}
       </View>
 
-      {/* NAVIGATION BUTTONS */}
       <View
         style={{
           flexDirection: "row",
@@ -191,7 +181,6 @@ export default function Quiz() {
         </TouchableOpacity>
       </View>
 
-      {/* PROGRESS BAR */}
       <View style={{ marginTop: 30 }}>
         <ProgressBar progress={(current + 1) / questions.length} />
       </View>
