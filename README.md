@@ -1,50 +1,97 @@
-# Welcome to your Expo app 👋
+# 🚀 HNG13 Mobile Stage 1 – Tech Quiz App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+A dynamic and interactive mobile quiz application developed with **Expo** and **React Native**, leveraging **NativeWind** for streamlined styling. This app challenges users with a series of tech-related questions, offering real-time progress tracking, theme customization, and comprehensive result summaries.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- 🚀 **Interactive Quiz Flow**: Engage with a series of randomized tech questions.
+- 🌓 **Dark/Light Theme Toggle**: Switch between different UI themes for personalized experience.
+- 📈 **Real-time Progress Bar**: Visually track quiz completion as you answer questions.
+- ✅ **Instant Score and Result Review**: Get immediate feedback on your performance and review answers.
+- 📱 **Responsive Mobile UI**: Seamless experience across various mobile devices and orientations.
+- ✨ **Modern Styling**: Utilizes NativeWind (TailwindCSS for React Native) for a clean and maintainable design.
 
-2. Start the app
+## Getting Started
 
-   ```bash
-   npx expo start
-   ```
+### Installation
 
-In the output, you'll find options to open the app in a
+To get this project up and running on your local machine, follow these steps:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1.  ⬇️ **Clone the Repository**:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+    ```bash
+    git clone <repository-url>
+    ```
 
-## Get a fresh project
+2.  📂 **Navigate to Project Directory**:
 
-When you're ready, run:
+    ```bash
+    cd stage_1
+    ```
 
-```bash
-npm run reset-project
-```
+3.  📦 **Install Dependencies**:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Environment Variables
 
-## Learn more
+This project currently does not require any explicit environment variables to run locally. All configurations are handled within the application code.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Usage
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Once the dependencies are installed, you can start the Expo development server:
 
-## Join the community
+1.  ▶️ **Start the Expo Development Server**:
 
-Join our community of developers creating universal apps.
+    ```bash
+    npx expo start start
+    ```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+2.  📱 **Open the App**:
+    - Scan the QR code displayed in your terminal with the Expo Go app on your mobile device.
+    - Press `a` to run on an Android emulator/device.
+    - Press `i` to run on an iOS simulator/device.
+    - Press `w` to run in a web browser.
+
+    The application will launch, presenting the home screen where you can initiate the quiz. Proceed through the questions, select your answers, and view your results upon completion. You can also toggle between light and dark themes using the button in the header.
+
+## Technologies Used
+
+| Category        | Technology                                                                   | Description                                                                |
+| :-------------- | :--------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| **Framework**   | [Expo](https://expo.dev/)                                                    | A powerful framework for universal React applications.                     |
+|                 | [React Native](https://reactnative.dev/)                                     | For building native mobile apps using JavaScript and React.                |
+| **Language**    | [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Primary programming language for application logic.                        |
+|                 | [TypeScript](https://www.typescriptlang.org/)                                | Used for type safety and improved developer experience (dev dependencies). |
+| **Styling**     | [NativeWind](https://www.nativewind.dev/)                                    | Utility-first CSS framework (TailwindCSS) for React Native.                |
+| **Navigation**  | [Expo Router](https://expo.dev/router)                                       | File-system based router for Expo and React Native applications.           |
+| **State Mgmt.** | [React Context API](https://react.dev/reference/react/createContext)         | For managing global state, such as theme preferences.                      |
+| **UI Icons**    | [Expo Vector Icons](https://docs.expo.dev/guides/icons/)                     | Provides access to a wide range of popular icon sets.                      |
+
+## Author Info
+
+Developed by a passionate software engineer.
+
+- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/your_username)
+- **Twitter**: [Your Twitter Profile](https://twitter.com/your_username)
+
+---
+
+[![Expo](https://img.shields.io/badge/Made%20with-Expo-000.svg?logo=expo)](https://expo.dev/)
+[![React Native](https://img.shields.io/badge/React%20Native-02B7DD?logo=react&logoColor=white)](https://reactnative.dev/)
+[![NativeWind](https://img.shields.io/badge/Styled%20with-NativeWind-black?logo=tailwindcss&logoColor=white)](https://www.nativewind.dev/)
+[![JavaScript](https://img.shields.io/badge/Language-JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+## 📬 Contact
+
+Connect with me:
+
+- 📧 Email: napg.adekunle@gmail.com
+- 🌈 Slack: Jamal-09
+
+### Built with 💻 & ❤️ by Jamal
